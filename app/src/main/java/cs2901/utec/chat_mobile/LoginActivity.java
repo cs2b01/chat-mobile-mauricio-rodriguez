@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import android.content.Intent;
-import org.json.JSONException;
 import android.view.View;
 
 
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                         String message = response.getString("message");
                         if(message.equals("Authorized")) {
                             showMessage("Authenticated");
-                            Intent intent = new Intent(getActivity(), ContactsActivity.class);
+                            Intent intent = new Intent(getActivity(), CurrentActivity.class);
                             startActivity(intent);
                         }
                         else {
