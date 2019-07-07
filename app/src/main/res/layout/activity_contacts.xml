@@ -4,25 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
+    tools:context="cs2901.utec.chat_mobile.ContactsActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_recycler_view"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/currentId"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:text= "current user:"
-            android:layout_marginBottom="20dp"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerId"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:layout_width="match_parent">
+    </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

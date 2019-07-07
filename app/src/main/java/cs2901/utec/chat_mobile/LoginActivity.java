@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.view.View;
 
 
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -39,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         // 1. Getting username and password inputs from view
         EditText txtUsername = (EditText) findViewById(R.id.txtUsername);
         EditText txtPassword = (EditText) findViewById(R.id.txtPassword);
-        String username = txtUsername.getText().toString();
+        final String username = txtUsername.getText().toString();
         String password = txtPassword.getText().toString();
 
         // 2. Creating a message from user input data
@@ -61,9 +60,12 @@ public class LoginActivity extends AppCompatActivity {
                     //TODO
                     try {
                         String message = response.getString("message");
-                        if(message.equals("Authorized")) {
+                        int status= response.getInt("status");
+                        if(status==200) {
                             showMessage("Authenticated");
-                            Intent intent = new Intent(getActivity(), CurrentActivity.class);
+                            Intent intent = new Intent(getActivity(), ContactsActivity.class);
+                            intent.putExtra("user_id", Integer.parseInt(message));
+                            intent.putExtra("username", username);
                             startActivity(intent);
                         }
                         else {
