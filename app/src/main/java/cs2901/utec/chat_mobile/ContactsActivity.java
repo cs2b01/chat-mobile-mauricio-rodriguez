@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -19,8 +20,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends AppCompatActivity
+{   JSONArray thearray= new JSONArray();
     RecyclerView recycler;
     RecyclerView.Adapter adapter;
 
@@ -31,8 +34,6 @@ public class ContactsActivity extends AppCompatActivity {
         recycler=findViewById(R.id.main_recycler_view);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         setTitle("@"+getIntent().getExtras().get("username").toString());
-
-        //------------------------------------//
     }
 
     @Override
@@ -48,19 +49,19 @@ public class ContactsActivity extends AppCompatActivity {
     public void getUsers(){
         String url = "http://10.0.2.2:5000/users";
         RequestQueue queue = Volley.newRequestQueue(this);
-        Map<String, String> params = new HashMap();
-        JSONObject parameters = new JSONObject(params);
         final String userId = getIntent().getExtras().get("user_id").toString();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url,
-                parameters,
-                new Response.Listener<JSONObject>() {
+                null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         try {
-                            JSONArray data = response.getJSONArray("data");
-                            adapter = new ChatAdapter(data, getActivity(), userId);
+                            for (int i=0;i<response.length();i++){
+                                thearray.put(i,response.getJSONObject(i));
+                            }
+                            adapter = new ChatAdapter(thearray, getActivity(), userId);
                             recycler.setAdapter(adapter);
 
                         }catch (JSONException e) {
@@ -76,7 +77,7 @@ public class ContactsActivity extends AppCompatActivity {
 
             }
         });
-        queue.add(jsonObjectRequest);
+        queue.add(jsonArrayRequest);
 
     }
 

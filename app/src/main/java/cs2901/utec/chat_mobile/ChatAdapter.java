@@ -51,7 +51,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             JSONObject element = elements.getJSONObject(position);
             String name = element.getString("name")+" "+element.getString("fullname");
             final String username = element.getString("username");
-            final String id = element.getString("id");
+            final String id = Integer.toString(element.getInt("id"));
             holder.first_line.setText(name);
             holder.second_line.setText(username);
 
@@ -63,7 +63,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                     goToMessage.putExtra("user_from_id",userFromId);
                     goToMessage.putExtra("user_to_id",id);
                     goToMessage.putExtra("username", username);
-                    context.startActivity(goToMessage);
+                   context.startActivity(goToMessage);
                 }
             });
 
