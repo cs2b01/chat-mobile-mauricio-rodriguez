@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MessageActivity"></activity>
         <activity android:name=".ContactsActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MessageActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
