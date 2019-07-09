@@ -1,6 +1,7 @@
 package cs2901.utec.chat_mobile;
 
 import android.content.Context;
+import android.graphics.ColorSpace;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,12 +13,13 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.ViewHolder> {
+import android.graphics.Color;
 
+
+public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.ViewHolder> {
     public JSONArray elements;
     private Context mContext;
     private int userFromId;
-
     public MyMessageAdapter(JSONArray elements, Context mContext, int userFromId) {
         this.elements = elements;
         this.mContext = mContext;
@@ -56,7 +58,9 @@ public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.View
             if(userFromId == this.userFromId){
                 holder.myLine.setText(mFirstLine);
                 holder.friendLine.setText("");
+                holder.friendLine.setVisibility(View.INVISIBLE);
             }else{
+                holder.myLine.setVisibility(View.INVISIBLE);
                 holder.myLine.setText("");
                 holder.friendLine.setText(mFirstLine);
             }

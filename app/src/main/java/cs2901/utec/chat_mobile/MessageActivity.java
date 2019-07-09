@@ -45,13 +45,30 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getChats();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                        getChats();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread hilo = new Thread(runnable);
+        hilo.start();
     }
 
     public void onClickBtnSend(View v) {
         postMessage();
+        EditText chatBox = findViewById(R.id.txtMessage);
+        chatBox.setText("");
     }
 
     public void getChats(){
